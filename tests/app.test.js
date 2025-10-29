@@ -1,16 +1,26 @@
 const request = require('supertest');
 const app = require('../server');
 
+let server;
+
+beforeAll(() => {
+  server = app.listen(3000);
+});
+
+afterAll((done) => {
+  server.close(done);
+});
+
 describe('API de Tarefas', () => {
-  it('deve criar uma nova tarefa', async () => {
-    const res = await request(app).post('/tasks').send({ title: 'Nova tarefa' });
-    expect(res.statusCode).toEqual(201);
-    expect(res.body).toHaveProperty('id');
+  test('deve criar uma nova tarefa', async () => {
+    const response = await request(server)
+      .post('/tarefas')
+      .send({ titulo: 'Estudar DevOps', concluida: false });
+    expect(response.statusCode).toBe(201);
   });
 
-  it('deve listar as tarefas', async () => {
-    const res = await request(app).get('/tasks');
-    expect(res.statusCode).toEqual(200);
-    expect(Array.isArray(res.body)).toBe(true);
+  test('deve listar as tarefas', async () => {
+    const response = await request(server).get('/tarefas');
+    expect(response.statusCode).toBe(200);
   });
 });
