@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../server');
+const app = require('../app');
 
 let server;
 
@@ -24,4 +24,3 @@ describe('API de Tarefas', () => {
     expect(response.statusCode).toBe(200);
   });
 });
-
