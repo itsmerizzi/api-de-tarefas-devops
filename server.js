@@ -22,5 +22,6 @@ app.delete('/tasks/:id', (req, res) => {
   res.status(204).send();
 });
 
-app.listen(3000, () => console.log('API de Tarefas rodando na porta 3000'));
+app.listen(4000, () => console.log('API de Tarefas rodando na porta 4000'));
 module.exports = app;
+
