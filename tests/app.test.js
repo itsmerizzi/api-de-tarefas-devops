@@ -4,7 +4,7 @@ const app = require('../server');
 let server;
 
 beforeAll(() => {
-  server = app.listen(3000);
+  server = app.listen(4000);
 });
 
 afterAll((done) => {
@@ -24,3 +24,4 @@ describe('API de Tarefas', () => {
     expect(response.statusCode).toBe(200);
   });
 });
+
