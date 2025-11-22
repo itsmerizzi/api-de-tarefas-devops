@@ -1,0 +1,30 @@
+# docker-compose.yml
+version: '3.8'
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"          # mapeia porta 3000 do container para a máquina host
+    environment:
+      - NODE_ENV=production  # variável de ambiente de exemplo
+    networks:
+      - app-network
+
+  db:
+    image: postgres:15      # imagem oficial PostgreSQL (opcional, se precisar de DB)
+    restart: always
+    environment:
+      - POSTGRES_DB=tarefasdb
+      - POSTGRES_USER=appuser
+      - POSTGRES_PASSWORD=senha123
+    volumes:
+      - db-data:/var/lib/postgresql/data  # persiste dados do DB
+    networks:
+      - app-network
+
+networks:
+  app-network:               # rede interna compartilhada entre containers
+    driver: bridge
+
+volumes:
+  db-data: {}                # volume para persistência do banco de dados
